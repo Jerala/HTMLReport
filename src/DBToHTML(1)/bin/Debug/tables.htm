@@ -1,0 +1,906 @@
+﻿<html>
+<head>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<style type="text/css">
+table.group_title td {font-family:Calibri; font-size: 26px;
+border: 0px solid white; border-top: 0px solid black; margin-top: 5px; width: 100%;}
+
+span.collapse{display:inline-block;width:16px;height:16px;background: #fff url(data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAdtJREFUeNqkUzsvBFEUPjNzZhY7az3CFh4RkfWqNKJFolDoyIaCTlR0SqGhEp0oNKqlEgkRCX6ARIdEZLWWwdrZsY95ufeuO3Zssgon+XLP6ztz7jl3BNd14T+Cc2tPIIpiGBFXiR0jiPzBSRLELctacRznAx3HBoLVgai8GBurhaY6qSL7JWVH4mfpxatbk5pLomEYQBCbGg1CveoCqVwRNGdypIZxKBd1XaeVIo1hkSWUysTSDTuPtvp9/sawBITHroqZTJo5yX3KCvDYbz8dPI+hYXwyxbZtBi6maQKPJRKPJFYsIkkIqqp6Mczlcl4HFEPTF2WDm1y+9/SDjSjk83ngPLQs12srm81De/uIl5xInLOzs3P0Z+/4TNYuAeehICBTstkCaasA++s1XvJgrBjbX/9ZraZVkQICcB55P9VMKRQckGUF0unPkq8VY6U+RQn4Yqgooe/hKNT03b2tbZCdsiyUzYXzMBBgSlJLiZGmesWXdLgpf6/T9L/lVxMIL8k+bGjX0NIz0/quw1B3RzWEgsiGVBwUMHCbQksB7B1n4OlV3L07nz2lvTUE66JdfcM7C2pD7ziA0Fz5X3KfM293J7eX89tG6v6BFqDTCJUN4G+hL0v/EmAAoNXlG97vnHoAAAAASUVORK5CYII=) 0px 0px no-repeat;}
+span.expand{display:inline-block;width:16px;height:16px;background: #fff url(data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAZ1JREFUeNqkkr1OAkEQx+fuhkPgkK8ghYZYGPzo7GjFxMJeQ7TQzljhGxhs9A2MhY0V2muMifoAJpaQGB+Aw0NPjuOA+3J34eg8ME7yT2Y3+/vv7OxwruvCfwL3T+rA83wMEctkXSTKjGFkooplWceO43yj49hAVF7NBUrFjWlIxwVf+kO1M5WHVumlatLlEa/rOhAVt9cjkJBcIM6+ome2CmHGUBY1TaNOmVSMZwcmiVRMAMKxp2K73WKb5D0TG9DGexzqeocltm0zeWGaJi0TOh2D5bY9MBcEBEmSwOOw2+2OKqDK7zz53n5zloNerwceh5bljsoyjB5kswX/f8cG+XYBPA45DlliGH1SVh+uT8O+BooyRQw48DgyPyGW9PsOBAIitFodXwNRDA7BAYeiGB02R6TLiUfY4zAYZImsqHwmnRAnguWmCYST2cW68gqzS7tzXxrkF+dDEI0ga9JvUlSAq9s21Jv8Ze1x754jJslIPLewsnZxKCWXNwG4mTFj1Gh/1u6qzwfnuvr2Tg1oN6J/asAg6GRpPwIMAFcAzawVzQR4AAAAAElFTkSuQmCC) 0px 0px no-repeat;}
+body, th, td {font-family:Calibri; font-size: 16px;}
+table { border-collapse: collapse; margin:auto;max-width:100%;}
+div { margin:auto;}
+th {word-break: break-all; max-width:75px;text-align:center}
+h1 { font-family: Calibri; font-size: 32px; margin-bottom: 30px;}
+th{border:2px solid #1d7188;font-weight: bold; padding: 3px 1px;white-space:pre-wrap; font-size: 20px; background-color: #EBEEEE;}
+td{border:2px solid #1d7188; white-space: nowrap;font-size: 16px;}
+</style></head><body><header style="font-family: Arial; 
+display: block;	
+color: White; margin:center; margin-top: 5px; font-weight: bold;
+			width: 100%; font-size: 32px; padding-top: 3%;
+			height: 100px; text-align: center;
+			background-color: #18424e; margin-bottom: 0px; 
+			border-bottom: solid 1px darkgray;
+">Отчет</header>
+<table style="cursor: pointer;background-color: rgb(49, 133, 156);margin-bottom:5px;margin-left:0px;font-size:" class="group_title" 
+                    cellpadding="0" cellspacing="0"; onclick="toggle('t0');" 
+                    onmouseover="this.style.cursor = 'hand'; this.style.backgroundColor = '#1d7188';" 
+                    onmouseout="this.style.backgroundColor = '#31859c';">
+                                <tr style="">
+                                    <td style="width: 0px;"><span id="t0img" class="collapse"></span></td>
+                                    <td style="
+                                    font-family: Arial;padding-left:5px;font-weight: bold; color: White;font-size:18px;">Par1</td>
+                                </tr>
+                            </table>
+<div id = "t0">
+<div style="display:block;margin-left:15;
+font-family:Arial;
+width: 35%;
+margin: auto;
+			height: 20px;
+			padding: 5px;
+			font-size: 18px;
+			font-weight: bold;
+			text-align:center;
+			color: black;
+			background-color: gainsboro;
+			margin-top: 30px;">SuperSchema</div><div style="width:80%; height:790px;margin:auto">
+<div style="width:25%;float:left">
+<div> </div>
+<div id="graph1"></div>
+<div id="graph2"></div>
+<div id="graph3"></div>
+</div><div style="width:25%;float:right">
+<div> </div>
+<div id="graph4"></div>
+<div id="graph5"></div>
+<div id="graph6"></div>
+</div>
+<div style="width:30%;"><table style="margin-top:15px;margin-bottom:15px;text-align:right;">
+<tr>
+<th>id</th>
+<th>number1</th>
+<th>numberX</th>
+<th>rjger</th><th>grogr</th><th>romegoem</th>
+</tr>
+<tr>
+<td>1</td>
+<td>5</td>
+<td>10</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3</td>
+<td>6</td>
+</tr>
+<tr>
+<td>3</td>
+<td>4</td>
+<td>8</td>
+</tr>
+<tr>
+<td>4</td>
+<td>5</td>
+<td>10</td>
+</tr>
+<tr>
+<td>5</td>
+<td>44</td>
+<td>43</td>
+</tr>
+<tr>
+<td>6</td>
+<td>12</td>
+<td>53</td>
+</tr>
+<tr>
+<td>7</td>
+<td>134</td>
+<td>542</td>
+</tr>
+<tr>
+<td>8</td>
+<td>134</td>
+<td>523</td>
+</tr>
+<tr>
+<td>9</td>
+<td>23</td>
+<td>253</td>
+</tr>
+<tr>
+<td>10</td>
+<td>25</td>
+<td>54</td>
+</tr>
+<tr>
+<td>11</td>
+<td>452</td>
+<td>235</td>
+</tr>
+<tr>
+<td>12</td>
+<td>254</td>
+<td>63</td>
+</tr>
+<tr>
+<td>13</td>
+<td>345</td>
+<td>456</td>
+</tr>
+<tr>
+<td>14</td>
+<td>5</td>
+<td>65</td>
+</tr>
+<tr>
+<td>15</td>
+<td>354</td>
+<td>635</td>
+</tr>
+<tr>
+<td>16</td>
+<td>253</td>
+<td>54</td>
+</tr>
+<tr>
+<td>17</td>
+<td>53</td>
+<td>63</td>
+</tr>
+<tr>
+<td>18</td>
+<td>54</td>
+<td>63</td>
+</tr>
+<tr>
+<td>19</td>
+<td>235</td>
+<td>56</td>
+</tr>
+<tr>
+<td>20</td>
+<td>253</td>
+<td>653</td>
+</tr>
+<tr>
+<td>21</td>
+<td>4</td>
+<td>34</td>
+</tr>
+<tr>
+<td>22</td>
+<td>54</td>
+<td>63</td>
+</tr>
+<tr>
+<td>23</td>
+<td>235</td>
+<td>34</td>
+</tr>
+<tr>
+<td>24</td>
+<td>34</td>
+<td>34</td>
+</tr>
+<tr>
+<td>25</td>
+<td>54</td>
+<td>57</td>
+</tr>
+<tr>
+<td>26</td>
+<td>254</td>
+<td>56</td>
+</tr>
+<tr>
+<td>27</td>
+<td>352</td>
+<td>564</td>
+</tr>
+<tr>
+<td>28</td>
+<td>5</td>
+<td>457</td>
+</tr>
+<tr>
+<td>29</td>
+<td>34</td>
+<td>65</td>
+</tr>
+<tr>
+<td>30</td>
+<td>43</td>
+<td>463</td>
+</tr>
+</table>
+</div>
+</div>
+<script type = "text/javascript">
+      google.charts.load('current', {'packages':['corechart', 'line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+var data = google.visualization.arrayToDataTable([
+['id', 'number1'],
+[1, 5], 
+[2, 3], 
+[3, 4], 
+[4, 5], 
+[5, 44], 
+[6, 12], 
+[7, 134], 
+[8, 134], 
+[9, 23], 
+[10, 25], 
+[11, 452], 
+[12, 254], 
+[13, 345], 
+[14, 5], 
+[15, 354], 
+[16, 253], 
+[17, 53], 
+[18, 54], 
+[19, 235], 
+[20, 253], 
+[21, 4], 
+[22, 54], 
+[23, 235], 
+[24, 34], 
+[25, 54], 
+[26, 254], 
+[27, 352], 
+[28, 5], 
+[29, 34], 
+[30, 43]]);
+var options = {
+          title: '',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+var chart = new google.visualization.LineChart(document.getElementById('graph1'));
+                chart.draw(data, options);
+      }
+    </script>
+<script type = "text/javascript">
+      google.charts.load('current', {'packages':['corechart', 'line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+var data = google.visualization.arrayToDataTable([
+['id', 'number1', 'numberX'],
+[1, 5, 10], 
+[2, 3, 6], 
+[3, 4, 8], 
+[4, 5, 10], 
+[5, 44, 43], 
+[6, 12, 53], 
+[7, 134, 542], 
+[8, 134, 523], 
+[9, 23, 253], 
+[10, 25, 54], 
+[11, 452, 235], 
+[12, 254, 63], 
+[13, 345, 456], 
+[14, 5, 65], 
+[15, 354, 635], 
+[16, 253, 54], 
+[17, 53, 63], 
+[18, 54, 63], 
+[19, 235, 56], 
+[20, 253, 653], 
+[21, 4, 34], 
+[22, 54, 63], 
+[23, 235, 34], 
+[24, 34, 34], 
+[25, 54, 57], 
+[26, 254, 56], 
+[27, 352, 564], 
+[28, 5, 457], 
+[29, 34, 65], 
+[30, 43, 463]]);
+var options = {
+          title: '',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+var chart = new google.visualization.LineChart(document.getElementById('graph2'));
+                chart.draw(data, options);
+      }
+    </script>
+<script type = "text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+var data = google.visualization.arrayToDataTable([
+['id','number1'],
+['1',5], 
+['2',3], 
+['3',4], 
+['4',5], 
+['5',44], 
+['6',12], 
+['7',134], 
+['8',134], 
+['9',23], 
+['10',25], 
+['11',452], 
+['12',254], 
+['13',345], 
+['14',5], 
+['15',354], 
+['16',253], 
+['17',53], 
+['18',54], 
+['19',235], 
+['20',253], 
+['21',4], 
+['22',54], 
+['23',235], 
+['24',34], 
+['25',54], 
+['26',254], 
+['27',352], 
+['28',5], 
+['29',34], 
+['30',43]]);
+var options = {
+          title: '',
+          pieHole: 0.4,
+        };
+var chart = new google.visualization.PieChart(document.getElementById('graph3'));
+                chart.draw(data, options);
+      }
+    </script>
+<script type = "text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+var data = google.visualization.arrayToDataTable([
+['id','numberX'],
+['1',10], 
+['2',6], 
+['3',8], 
+['4',10], 
+['5',43], 
+['6',53], 
+['7',542], 
+['8',523], 
+['9',253], 
+['10',54], 
+['11',235], 
+['12',63], 
+['13',456], 
+['14',65], 
+['15',635], 
+['16',54], 
+['17',63], 
+['18',63], 
+['19',56], 
+['20',653], 
+['21',34], 
+['22',63], 
+['23',34], 
+['24',34], 
+['25',57], 
+['26',56], 
+['27',564], 
+['28',457], 
+['29',65], 
+['30',463]]);
+var options = {
+          title: '',
+          pieHole: 0.4,
+        };
+var chart = new google.visualization.PieChart(document.getElementById('graph4'));
+                chart.draw(data, options);
+      }
+    </script>
+<script type = "text/javascript">
+      google.charts.load("visualization", "1" , {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+['id', 'number1', 'numberX', { role: 'annotation' }], 
+['1', 5, 10, '']
+, ['2', 3, 6, '']
+, ['3', 4, 8, '']
+, ['4', 5, 10, '']
+, ['5', 44, 43, '']
+, ['6', 12, 53, '']
+, ['7', 134, 542, '']
+, ['8', 134, 523, '']
+, ['9', 23, 253, '']
+, ['10', 25, 54, '']
+, ['11', 452, 235, '']
+, ['12', 254, 63, '']
+, ['13', 345, 456, '']
+, ['14', 5, 65, '']
+, ['15', 354, 635, '']
+, ['16', 253, 54, '']
+, ['17', 53, 63, '']
+, ['18', 54, 63, '']
+, ['19', 235, 56, '']
+, ['20', 253, 653, '']
+, ['21', 4, 34, '']
+, ['22', 54, 63, '']
+, ['23', 235, 34, '']
+, ['24', 34, 34, '']
+, ['25', 54, 57, '']
+, ['26', 254, 56, '']
+, ['27', 352, 564, '']
+, ['28', 5, 457, '']
+, ['29', 34, 65, '']
+, ['30', 43, 463, '']
+]);
+
+        var options = {
+        legend: { position: 'top', maxLines: 3, textStyle: {color: 'black', fontSize: 16 } },
+		isStacked: true, 
+      };
+var chart = new google.visualization.ColumnChart(document.getElementById('graph5'));
+                chart.draw(data, options);
+      }
+    </script>
+<script type = "text/javascript">
+      google.charts.load("visualization", "1" , {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+['id', 'number1', { role: 'annotation' }], 
+['1', 5, '']
+, ['2', 3, '']
+, ['3', 4, '']
+, ['4', 5, '']
+, ['5', 44, '']
+, ['6', 12, '']
+, ['7', 134, '']
+, ['8', 134, '']
+, ['9', 23, '']
+, ['10', 25, '']
+, ['11', 452, '']
+, ['12', 254, '']
+, ['13', 345, '']
+, ['14', 5, '']
+, ['15', 354, '']
+, ['16', 253, '']
+, ['17', 53, '']
+, ['18', 54, '']
+, ['19', 235, '']
+, ['20', 253, '']
+, ['21', 4, '']
+, ['22', 54, '']
+, ['23', 235, '']
+, ['24', 34, '']
+, ['25', 54, '']
+, ['26', 254, '']
+, ['27', 352, '']
+, ['28', 5, '']
+, ['29', 34, '']
+, ['30', 43, '']
+]);
+
+        var options = {
+        legend: { position: 'top', maxLines: 3, textStyle: {color: 'black', fontSize: 16 } },
+		isStacked: true, 
+      };
+var chart = new google.visualization.ColumnChart(document.getElementById('graph6'));
+                chart.draw(data, options);
+      }
+    </script>
+</div>
+<table style="cursor: pointer;background-color: rgb(49, 133, 156);margin-bottom:5px;margin-left:0px;font-size:" class="group_title" 
+                    cellpadding="0" cellspacing="0"; onclick="toggle('t1');" 
+                    onmouseover="this.style.cursor = 'hand'; this.style.backgroundColor = '#1d7188';" 
+                    onmouseout="this.style.backgroundColor = '#31859c';">
+                                <tr style="">
+                                    <td style="width: 0px;"><span id="t1img" class="collapse"></span></td>
+                                    <td style="
+                                    font-family: Arial;padding-left:5px;font-weight: bold; color: White;font-size:18px;">Part2</td>
+                                </tr>
+                            </table>
+<div id = "t1">
+<table style="cursor: pointer;background-color: rgb(49, 133, 156);margin-bottom:5px;margin-left:15px;font-size:" class="group_title" 
+                    cellpadding="0" cellspacing="0"; onclick="toggle('t2');" 
+                    onmouseover="this.style.cursor = 'hand'; this.style.backgroundColor = '#1d7188';" 
+                    onmouseout="this.style.backgroundColor = '#31859c';">
+                                <tr style="">
+                                    <td style="width: 0px;"><span id="t2img" class="collapse"></span></td>
+                                    <td style="
+                                    font-family: Arial;padding-left:5px;font-weight: bold; color: White;font-size:18px;">Line</td>
+                                </tr>
+                            </table>
+<div id = "t2">
+<script type = "text/javascript">
+      google.charts.load('current', {'packages':['corechart', 'line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+var data = google.visualization.arrayToDataTable([
+['id', 'number1', 'numberX'],
+[1, 5, 10], 
+[2, 3, 6], 
+[3, 4, 8], 
+[4, 5, 10], 
+[5, 44, 43], 
+[6, 12, 53], 
+[7, 134, 542], 
+[8, 134, 523], 
+[9, 23, 253], 
+[10, 25, 54], 
+[11, 452, 235], 
+[12, 254, 63], 
+[13, 345, 456], 
+[14, 5, 65], 
+[15, 354, 635], 
+[16, 253, 54], 
+[17, 53, 63], 
+[18, 54, 63], 
+[19, 235, 56], 
+[20, 253, 653], 
+[21, 4, 34], 
+[22, 54, 63], 
+[23, 235, 34], 
+[24, 34, 34], 
+[25, 54, 57], 
+[26, 254, 56], 
+[27, 352, 564], 
+[28, 5, 457], 
+[29, 34, 65], 
+[30, 43, 463]]);
+var options = {
+          title: 'Some text',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+var chart = new google.visualization.LineChart(document.getElementById('curve_chart0'));
+        chart.draw(data, options);
+      }
+    </script>
+        <div id ="curve_chart0" style="margin: auto;"></div>
+</div>
+</div>
+<table style="cursor: pointer;background-color: rgb(49, 133, 156);margin-bottom:5px;margin-left:0px;font-size:" class="group_title" 
+                    cellpadding="0" cellspacing="0"; onclick="toggle('t3');" 
+                    onmouseover="this.style.cursor = 'hand'; this.style.backgroundColor = '#1d7188';" 
+                    onmouseout="this.style.backgroundColor = '#31859c';">
+                                <tr style="">
+                                    <td style="width: 0px;"><span id="t3img" class="collapse"></span></td>
+                                    <td style="
+                                    font-family: Arial;padding-left:5px;font-weight: bold; color: White;font-size:18px;">Donut</td>
+                                </tr>
+                            </table>
+<div id = "t3">
+<script type = "text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+var data = google.visualization.arrayToDataTable([
+['id','number1'],
+['1',5], 
+['2',3], 
+['3',4], 
+['4',5], 
+['5',44], 
+['6',12], 
+['7',134], 
+['8',134], 
+['9',23], 
+['10',25], 
+['11',452], 
+['12',254], 
+['13',345], 
+['14',5], 
+['15',354], 
+['16',253], 
+['17',53], 
+['18',54], 
+['19',235], 
+['20',253], 
+['21',4], 
+['22',54], 
+['23',235], 
+['24',34], 
+['25',54], 
+['26',254], 
+['27',352], 
+['28',5], 
+['29',34], 
+['30',43]]);
+var options = {
+          title: 'Donut',
+          pieHole: 0.4,
+        };
+var chart = new google.visualization.PieChart(document.getElementById('donutchart1'));
+        chart.draw(data, options);
+      }
+    </script>
+        <div id="donutchart1" style="width: 900px; height: 500px;"></div>
+</div>
+<table style="cursor: pointer;background-color: rgb(49, 133, 156);margin-bottom:5px;margin-left:0px;font-size:" class="group_title" 
+                    cellpadding="0" cellspacing="0"; onclick="toggle('t4');" 
+                    onmouseover="this.style.cursor = 'hand'; this.style.backgroundColor = '#1d7188';" 
+                    onmouseout="this.style.backgroundColor = '#31859c';">
+                                <tr style="">
+                                    <td style="width: 0px;"><span id="t4img" class="collapse"></span></td>
+                                    <td style="
+                                    font-family: Arial;padding-left:5px;font-weight: bold; color: White;font-size:18px;">Column</td>
+                                </tr>
+                            </table>
+<div id = "t4">
+<script type = "text/javascript">
+      google.charts.load("visualization", "1" , {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+['id', 'number1', 'numberX', { role: 'annotation' }], 
+['1', 5, 10, '']
+, ['2', 3, 6, '']
+, ['3', 4, 8, '']
+, ['4', 5, 10, '']
+, ['5', 44, 43, '']
+, ['6', 12, 53, '']
+, ['7', 134, 542, '']
+, ['8', 134, 523, '']
+, ['9', 23, 253, '']
+, ['10', 25, 54, '']
+, ['11', 452, 235, '']
+, ['12', 254, 63, '']
+, ['13', 345, 456, '']
+, ['14', 5, 65, '']
+, ['15', 354, 635, '']
+, ['16', 253, 54, '']
+, ['17', 53, 63, '']
+, ['18', 54, 63, '']
+, ['19', 235, 56, '']
+, ['20', 253, 653, '']
+, ['21', 4, 34, '']
+, ['22', 54, 63, '']
+, ['23', 235, 34, '']
+, ['24', 34, 34, '']
+, ['25', 54, 57, '']
+, ['26', 254, 56, '']
+, ['27', 352, 564, '']
+, ['28', 5, 457, '']
+, ['29', 34, 65, '']
+, ['30', 43, 463, '']
+]);
+
+        var options = {
+        legend: { position: 'top', maxLines: 3, textStyle: {color: 'black', fontSize: 16 } },
+		isStacked: true, 
+      };
+var chart = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
+        chart.draw(data, options);
+ 	  }
+
+    </script>
+    <div id="chart_div2" style="margin: auto; max-width:700px; height:350px;max-height:400px;"></div>
+</div>
+<table style="cursor: pointer;background-color: rgb(49, 133, 156);margin-bottom:5px;margin-left:0px;font-size:" class="group_title" 
+                    cellpadding="0" cellspacing="0"; onclick="toggle('t5');" 
+                    onmouseover="this.style.cursor = 'hand'; this.style.backgroundColor = '#1d7188';" 
+                    onmouseout="this.style.backgroundColor = '#31859c';">
+                                <tr style="">
+                                    <td style="width: 0px;"><span id="t5img" class="collapse"></span></td>
+                                    <td style="
+                                    font-family: Arial;padding-left:5px;font-weight: bold; color: White;font-size:18px;">Table</td>
+                                </tr>
+                            </table>
+<div id = "t5">
+<table style="margin-top:15px;margin-bottom:15px;">
+<tr>
+<th>id</th>
+<th>number1</th>
+<th>numberX</th>
+</tr>
+<tr>
+<td>1</td>
+<td>5</td>
+<td>10</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3</td>
+<td>6</td>
+</tr>
+<tr>
+<td>3</td>
+<td>4</td>
+<td>8</td>
+</tr>
+<tr>
+<td>4</td>
+<td>5</td>
+<td>10</td>
+</tr>
+<tr>
+<td>5</td>
+<td>44</td>
+<td>43</td>
+</tr>
+<tr>
+<td>6</td>
+<td>12</td>
+<td>53</td>
+</tr>
+<tr>
+<td>7</td>
+<td>134</td>
+<td>542</td>
+</tr>
+<tr>
+<td>8</td>
+<td>134</td>
+<td>523</td>
+</tr>
+<tr>
+<td>9</td>
+<td>23</td>
+<td>253</td>
+</tr>
+<tr>
+<td>10</td>
+<td>25</td>
+<td>54</td>
+</tr>
+<tr>
+<td>11</td>
+<td>452</td>
+<td>235</td>
+</tr>
+<tr>
+<td>12</td>
+<td>254</td>
+<td>63</td>
+</tr>
+<tr>
+<td>13</td>
+<td>345</td>
+<td>456</td>
+</tr>
+<tr>
+<td>14</td>
+<td>5</td>
+<td>65</td>
+</tr>
+<tr>
+<td>15</td>
+<td>354</td>
+<td>635</td>
+</tr>
+<tr>
+<td>16</td>
+<td>253</td>
+<td>54</td>
+</tr>
+<tr>
+<td>17</td>
+<td>53</td>
+<td>63</td>
+</tr>
+<tr>
+<td>18</td>
+<td>54</td>
+<td>63</td>
+</tr>
+<tr>
+<td>19</td>
+<td>235</td>
+<td>56</td>
+</tr>
+<tr>
+<td>20</td>
+<td>253</td>
+<td>653</td>
+</tr>
+<tr>
+<td>21</td>
+<td>4</td>
+<td>34</td>
+</tr>
+<tr>
+<td>22</td>
+<td>54</td>
+<td>63</td>
+</tr>
+<tr>
+<td>23</td>
+<td>235</td>
+<td>34</td>
+</tr>
+<tr>
+<td>24</td>
+<td>34</td>
+<td>34</td>
+</tr>
+<tr>
+<td>25</td>
+<td>54</td>
+<td>57</td>
+</tr>
+<tr>
+<td>26</td>
+<td>254</td>
+<td>56</td>
+</tr>
+<tr>
+<td>27</td>
+<td>352</td>
+<td>564</td>
+</tr>
+<tr>
+<td>28</td>
+<td>5</td>
+<td>457</td>
+</tr>
+<tr>
+<td>29</td>
+<td>34</td>
+<td>65</td>
+</tr>
+<tr>
+<td>30</td>
+<td>43</td>
+<td>463</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript">
+document.getElementById('t0').style.display = 'none';
+document.getElementById('t1').style.display = 'none';
+document.getElementById('t2').style.display = 'none';
+document.getElementById('t3').style.display = 'none';
+document.getElementById('t4').style.display = 'none';
+document.getElementById('t5').style.display = 'none';
+function Init() {
+	var arr = document.getElementsByTagName('DIV');
+	for (el in arr) {
+		var obj = arr[el];
+		var id = arr[el].id;
+		var node = arr[el].nodeName;
+		var tag = arr[el].tagName;
+		if (arr[el].nodeName == 'DIV' && arr[el].id.indexOf('t') == 0) {
+			toggle(arr[el].id);
+			arr[el].style.display = 'none';
+		}
+	}
+	toggle('t0');
+}
+
+function toggle(objName) {
+	var imgName = objName + 'img';
+
+	var obj = document.getElementById(objName);
+	var objImg = document.getElementById(imgName);
+
+	if (obj.style.display != 'none') {
+		obj.style.display = 'none';
+		objImg.className = 'expand';
+	}
+	else {
+		obj.style.display = 'block';
+		objImg.className = 'collapse';
+	}
+}
+</script>
+<footer style="font-size: 24px;
+display: block;
+			height: 80px;
+			background-color: #18424e; padding-left: 1%;
+			border-top: solid 1px darkgray;
+font-weight: bold;padding-top: 1%; color: White;
+">21.10.2016</footer></body></html>
+
