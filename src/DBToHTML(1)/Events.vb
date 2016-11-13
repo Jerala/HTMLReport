@@ -9,6 +9,7 @@ Public Class Events
     Dim numOfGraphic = 0
     Dim CounterOfGraphicsInSuperSchema = 1
     Dim MaxindexOfGraphicInSuperSchema = 0
+    Dim drawingDoubleDiv = False
     Public Sub New()
 
         InitializeComponent()
@@ -104,7 +105,10 @@ Public Class Events
             CallNewParagraph("Table")
             CallTable(ds.Tables(0))
             CloseParagraph()
-
+            CallNewParagraph("123")
+            AddDoubleDiv(ds.Tables(0))
+            CallColumnGraphic(ds.Tables(0), 0, 1, 2)
+            CloseParagraph()
             Call HtmlEnd()
             Call CreateHTML()
             Environment.Exit(0)
@@ -114,54 +118,203 @@ Public Class Events
         End Try
     End Sub
 
-    Private Sub AddSuperSchema(countOfGraphics As Integer, table As DataTable)
+    Private Sub AddSuperSchema(ByVal countOfGraphics As Integer, ByVal table As DataTable, Optional ByRef W As Integer = 0, Optional ByRef H As Integer = 0)
+
         Dim doubl As Double = Nothing
         Dim strTable = New StringBuilder()
         Dim height As Integer
-        If (countOfGraphics * 100) + 30 > (table.Rows.Count * 25) + 40 Then
-            height = (countOfGraphics * 100) + 30
-        Else
-            height = (table.Rows.Count * 25) + 40
-        End If
-        strTable.AppendLine("<table style=""margin-top:15px;margin-bottom:15px;text-align:right;"">")
-        strTable.AppendLine("<tr>")
-        For i As Integer = 0 To table.Columns.Count - 1
-            strTable.AppendLine("<th>" + table.Columns(i).ColumnName + "</th>")
-        Next
-        strTable.AppendLine("<th>rjger</th><th>grogr</th><th>romegoem</th>")
-        strTable.AppendLine("</tr>")
-        For i As Integer = 0 To table.Rows.Count - 1
-            strTable.AppendLine("<tr>")
-            For j As Integer = 0 To table.Columns.Count - 1
-                If Double.TryParse(table.Rows(i)(j), doubl) AndAlso table.Rows(i)(j) Mod 1 <> 0 Then
-                    strTable.AppendLine("<td>" + Double.Parse(table.Rows(i)(j)).ToString("N2") + "</td>")
-                Else
-                    strTable.AppendLine("<td>" + table.Rows(i)(j).ToString() + "</td>")
-                End If
-            Next
-            strTable.AppendLine("</tr>")
-        Next
-        strTable.AppendLine("</table>")
+        Dim index As Integer = 1
+
+        height = (countOfGraphics * 100) + 300 + table.Rows.Count * 25 + 30
 
         MaxindexOfGraphicInSuperSchema = countOfGraphics
-        Dim index = 1
-        html.AppendLine("<div style=""width:80%; height:" + height.ToString + "px;margin:auto"">
-<div style=""width:25%;float:left"">")
-        html.AppendLine("<div> </div>")
+
+        H = height
+
+        html.AppendLine("<div style=""width:90%; height:" + height.ToString + "px; margin:auto;text-align:center; display: inline-block;""> " &
+                        "<div style=""width:50%;display: inline-block;position:relative;vertical-align: top"">")          'float:left
+        html.AppendLine("<div></div>")
+
+
         For i As Integer = 0 To (countOfGraphics / 2) - 1
-            html.AppendLine("<div id=""graph" + index.ToString + """></div>")
+            html.AppendLine("<div id=""graph" + index.ToString + """ style=""width:100%;text-align:center;height:" + Math.Floor((100 / countOfGraphics) * 2).ToString + "%;""></div>")
             index += 1
         Next
-        html.AppendLine("</div><div style=""width:25%;float:right"">")
-        html.AppendLine("<div> </div>")
+
+
+        strTable.AppendLine("<table style=""margin-top:15px;margin-bottom:15px;text-align:right;"">")
+        strTable.AppendLine("<tr>")
+
+        For i As Integer = 0 To table.Columns.Count - 1
+
+            strTable.AppendLine("<th>" + table.Columns(i).ColumnName + "</th>")
+
+        Next
+
+        strTable.AppendLine("</tr>")
+
+        For i As Integer = 0 To table.Rows.Count - 1
+
+            strTable.AppendLine("<tr>")
+
+            For j As Integer = 0 To table.Columns.Count - 1
+
+                If IsDBNull(table.Rows(i)(j)) = False Then
+
+                    If Double.TryParse(table.Rows(i)(j), doubl) AndAlso table.Rows(i)(j) Mod 1 <> 0 Then
+                        strTable.AppendLine("<td>" + Double.Parse(table.Rows(i)(j)).ToString("N2") + "</td>")
+                    Else
+                        strTable.AppendLine("<td>" + table.Rows(i)(j).ToString() + "</td>")
+                    End If
+
+                Else
+
+                    strTable.AppendLine("<td></td>")
+
+                End If
+
+            Next
+
+            strTable.AppendLine("</tr>")
+
+        Next
+
+        strTable.AppendLine("</table>")
+        'html.AppendLine("</div><div style=""width:30%;display: inline-block;"">" + strTable.ToString)
+
+        html.AppendLine("</div><div style=""width:50%;display: inline-block;vertical-align: top"">")        'float:right
+        html.AppendLine("<div></div>")
+
         For i As Integer = countOfGraphics / 2 To countOfGraphics - 1
-            html.AppendLine("<div id=""graph" + index.ToString + """></div>")
+
+            html.AppendLine("<div id=""graph" + index.ToString + """ style=""width:100%;text-align:center;height:" + Math.Floor((100 / countOfGraphics) * 2).ToString + "%;""></div>")
             index += 1
+
         Next
-        html.AppendLine("</div>
-<div style=""width:30%;"">" + strTable.ToString + "</div>
-</div>")
+
+        html.AppendLine("</div></div>" + strTable.ToString + "")
+
     End Sub
+
+
+    Private Sub AddDoubleDiv(table As DataTable, Optional table2 As DataTable = Nothing)
+        drawingDoubleDiv = True
+        Dim height As Integer = 350
+        Dim index = 500
+        If (table2 IsNot Nothing AndAlso table.Rows.Count >= table2.Rows.Count) OrElse table2 Is Nothing Then
+            height = table.Rows.Count * 25 + 100
+        Else
+            height = table2.Rows.Count * 25 + 100
+        End If
+        If table2 Is Nothing AndAlso height < 350 Then
+            height = 350
+        End If
+        html.AppendLine("<div style=""width:90%; height:" + height.ToString + "px; margin:auto;text-align:center; display: inline-block;""> " &
+                       "<div style=""width:50%;display: inline-block;position:relative;vertical-align: top"">")
+
+            If table IsNot Nothing Then
+
+                Dim doubl As Double
+                Dim strTable = New StringBuilder()
+                strTable.AppendLine("<table style=""margin-top:15px;margin-bottom:15px;text-align:right;"">")
+                strTable.AppendLine("<tr>")
+
+                For i As Integer = 0 To table.Columns.Count - 1
+
+                    strTable.AppendLine("<th>" + table.Columns(i).ColumnName + "</th>")
+
+                Next
+
+                strTable.AppendLine("</tr>")
+
+                For i As Integer = 0 To table.Rows.Count - 1
+
+                    strTable.AppendLine("<tr>")
+
+                    For j As Integer = 0 To table.Columns.Count - 1
+
+                        If IsDBNull(table.Rows(i)(j)) = False Then
+
+                            If Double.TryParse(table.Rows(i)(j), doubl) AndAlso table.Rows(i)(j) Mod 1 <> 0 Then
+                                strTable.AppendLine("<td>" + Double.Parse(table.Rows(i)(j)).ToString("N2") + "</td>")
+                            Else
+                                strTable.AppendLine("<td>" + table.Rows(i)(j).ToString() + "</td>")
+                            End If
+
+                        Else
+
+                            strTable.AppendLine("<td></td>")
+
+                        End If
+
+                    Next
+
+                    strTable.AppendLine("</tr>")
+
+                Next
+
+                strTable.AppendLine("</table>")
+                html.AppendLine(strTable.ToString)
+            Else
+
+                html.AppendLine("<div id=""graph" + index.ToString + """ style=""width:100%;text-align:center;height:100%;""></div>")
+                index += 1
+
+            End If
+            html.AppendLine("</div><div style=""width:50%;display: inline-block;position:relative;vertical-align: top"">")
+            If table2 IsNot Nothing Then
+
+                Dim doubl As Double
+                Dim strTable = New StringBuilder()
+                strTable.AppendLine("<table style=""margin-top:15px;margin-bottom:15px;text-align:right;"">")
+                strTable.AppendLine("<tr>")
+
+                For i As Integer = 0 To table2.Columns.Count - 1
+
+                    strTable.AppendLine("<th>" + table2.Columns(i).ColumnName + "</th>")
+
+                Next
+
+                strTable.AppendLine("</tr>")
+
+                For i As Integer = 0 To table2.Rows.Count - 1
+
+                    strTable.AppendLine("<tr>")
+
+                    For j As Integer = 0 To table2.Columns.Count - 1
+
+                        If IsDBNull(table2.Rows(i)(j)) = False Then
+
+                            If Double.TryParse(table2.Rows(i)(j), doubl) AndAlso table2.Rows(i)(j) Mod 1 <> 0 Then
+                                strTable.AppendLine("<td>" + Double.Parse(table2.Rows(i)(j)).ToString("N2") + "</td>")
+                            Else
+                                strTable.AppendLine("<td>" + table2.Rows(i)(j).ToString() + "</td>")
+                            End If
+
+                        Else
+
+                            strTable.AppendLine("<td></td>")
+
+                        End If
+
+                    Next
+
+                    strTable.AppendLine("</tr>")
+
+                Next
+
+                strTable.AppendLine("</table>")
+            html.AppendLine(strTable.ToString)
+            drawingDoubleDiv = False
+        Else
+
+            html.AppendLine("<div id=""graph500"" style=""width:100%;text-align:center;height:100%;""></div>")
+            index += 1
+
+            End If
+        html.AppendLine("</div>")
+    End Sub
+
 
     Private Sub CallPieGraphic(table As DataTable, column As Integer, name As String)
         Dim data = New StringBuilder()
@@ -191,13 +344,19 @@ var data = google.visualization.arrayToDataTable(" + data.ToString +
           title: '" + name + "',
           pieHole: 0.4,
         };")
-        If MaxindexOfGraphicInSuperSchema > 0 AndAlso CounterOfGraphicsInSuperSchema <= MaxindexOfGraphicInSuperSchema Then
+        If (MaxindexOfGraphicInSuperSchema > 0 AndAlso CounterOfGraphicsInSuperSchema <= MaxindexOfGraphicInSuperSchema) Then
             html.AppendLine("var chart = new google.visualization.PieChart(document.getElementById('graph" +
                 CounterOfGraphicsInSuperSchema.ToString + "'));
                 chart.draw(data, options);
       }
     </script>")
             CounterOfGraphicsInSuperSchema += 1
+        ElseIf drawingDoubleDiv Then
+            html.AppendLine("var chart = new google.visualization.PieChart(document.getElementById('graph500'));
+                chart.draw(data, options);
+      }
+    </script>")
+            drawingDoubleDiv = False
         Else
             html.AppendLine("var chart = new google.visualization.PieChart(document.getElementById('donutchart" +
                             numOfGraphic.ToString + "'));
@@ -247,13 +406,20 @@ var data = google.visualization.arrayToDataTable(" + data.ToString +
           legend: { position: 'bottom' }
         };
 ")
-        If MaxindexOfGraphicInSuperSchema > 0 AndAlso CounterOfGraphicsInSuperSchema <= MaxindexOfGraphicInSuperSchema Then
+        If (MaxindexOfGraphicInSuperSchema > 0 AndAlso CounterOfGraphicsInSuperSchema <= MaxindexOfGraphicInSuperSchema) Then
             html.AppendLine("var chart = new google.visualization.LineChart(document.getElementById('graph" +
                 CounterOfGraphicsInSuperSchema.ToString + "'));
                 chart.draw(data, options);
       }
     </script>")
             CounterOfGraphicsInSuperSchema += 1
+        ElseIf drawingDoubleDiv Then
+            html.AppendLine("var chart = new google.visualization.LineChart(document.getElementById('graph" +
+                CounterOfGraphicsInSuperSchema.ToString + "'));
+                chart.draw(data, options);
+      }
+    </script>")
+            drawingDoubleDiv = False
         Else
             html.AppendLine("var chart = new google.visualization.LineChart(document.getElementById('curve_chart" +
                             numOfGraphic.ToString + "'));
@@ -261,7 +427,7 @@ var data = google.visualization.arrayToDataTable(" + data.ToString +
       }
     </script>
         <div id =""curve_chart" + numOfGraphic.ToString +
-        """ style=""margin: auto;""></div>")
+        """ style=""margin: auto; max-width:700px; height:350px;max-height:400px;""></div>")
             numOfGraphic += 1
         End If
     End Sub
@@ -280,7 +446,7 @@ var data = google.visualization.arrayToDataTable(" + data.ToString +
         html.AppendLine("</td>
                                 </tr>
                             </table>
-<div id = ""t" + i.ToString + """>")
+<div id = ""t" + i.ToString + """ style=""text-align:center;"">")
         margin += 15
         i += 1
     End Sub
@@ -327,13 +493,19 @@ var data = google.visualization.arrayToDataTable(" + data.ToString +
         legend: { position: 'top', maxLines: 3, textStyle: {color: 'black', fontSize: 16 } },
 		isStacked: true, 
       };")
-        If MaxindexOfGraphicInSuperSchema > 0 AndAlso CounterOfGraphicsInSuperSchema <= MaxindexOfGraphicInSuperSchema Then
+        If (MaxindexOfGraphicInSuperSchema > 0 AndAlso CounterOfGraphicsInSuperSchema <= MaxindexOfGraphicInSuperSchema) Then
             html.AppendLine("var chart = new google.visualization.ColumnChart(document.getElementById('graph" +
                 CounterOfGraphicsInSuperSchema.ToString + "'));
                 chart.draw(data, options);
       }
     </script>")
             CounterOfGraphicsInSuperSchema += 1
+        ElseIf drawingDoubleDiv Then
+            html.AppendLine("var chart = new google.visualization.ColumnChart(document.getElementById('graph500'));
+                chart.draw(data, options);
+      }
+    </script>")
+            drawingDoubleDiv = False
         Else
             html.AppendLine("var chart = new google.visualization.ColumnChart(document.getElementById('chart_div" + numOfGraphic.ToString + "'));
         chart.draw(data, options);
@@ -388,8 +560,8 @@ var data = google.visualization.arrayToDataTable(" + data.ToString +
         html.AppendLine("table.group_title td {font-family:Calibri; font-size: 26px;
 border: 0px solid white; border-top: 0px solid black; margin-top: 5px; width: 100%;}
 
-span.collapse{display:inline-block;width:16px;height:16px;background: #fff url(data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAdtJREFUeNqkUzsvBFEUPjNzZhY7az3CFh4RkfWqNKJFolDoyIaCTlR0SqGhEp0oNKqlEgkRCX6ARIdEZLWWwdrZsY95ufeuO3Zssgon+XLP6ztz7jl3BNd14T+Cc2tPIIpiGBFXiR0jiPzBSRLELctacRznAx3HBoLVgai8GBurhaY6qSL7JWVH4mfpxatbk5pLomEYQBCbGg1CveoCqVwRNGdypIZxKBd1XaeVIo1hkSWUysTSDTuPtvp9/sawBITHroqZTJo5yX3KCvDYbz8dPI+hYXwyxbZtBi6maQKPJRKPJFYsIkkIqqp6Mczlcl4HFEPTF2WDm1y+9/SDjSjk83ngPLQs12srm81De/uIl5xInLOzs3P0Z+/4TNYuAeehICBTstkCaasA++s1XvJgrBjbX/9ZraZVkQICcB55P9VMKRQckGUF0unPkq8VY6U+RQn4Yqgooe/hKNT03b2tbZCdsiyUzYXzMBBgSlJLiZGmesWXdLgpf6/T9L/lVxMIL8k+bGjX0NIz0/quw1B3RzWEgsiGVBwUMHCbQksB7B1n4OlV3L07nz2lvTUE66JdfcM7C2pD7ziA0Fz5X3KfM293J7eX89tG6v6BFqDTCJUN4G+hL0v/EmAAoNXlG97vnHoAAAAASUVORK5CYII=) 0px 0px no-repeat;}
-span.expand{display:inline-block;width:16px;height:16px;background: #fff url(data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAZ1JREFUeNqkkr1OAkEQx+fuhkPgkK8ghYZYGPzo7GjFxMJeQ7TQzljhGxhs9A2MhY0V2muMifoAJpaQGB+Aw0NPjuOA+3J34eg8ME7yT2Y3+/vv7OxwruvCfwL3T+rA83wMEctkXSTKjGFkooplWceO43yj49hAVF7NBUrFjWlIxwVf+kO1M5WHVumlatLlEa/rOhAVt9cjkJBcIM6+ome2CmHGUBY1TaNOmVSMZwcmiVRMAMKxp2K73WKb5D0TG9DGexzqeocltm0zeWGaJi0TOh2D5bY9MBcEBEmSwOOw2+2OKqDK7zz53n5zloNerwceh5bljsoyjB5kswX/f8cG+XYBPA45DlliGH1SVh+uT8O+BooyRQw48DgyPyGW9PsOBAIitFodXwNRDA7BAYeiGB02R6TLiUfY4zAYZImsqHwmnRAnguWmCYST2cW68gqzS7tzXxrkF+dDEI0ga9JvUlSAq9s21Jv8Ze1x754jJslIPLewsnZxKCWXNwG4mTFj1Gh/1u6qzwfnuvr2Tg1oN6J/asAg6GRpPwIMAFcAzawVzQR4AAAAAElFTkSuQmCC) 0px 0px no-repeat;}
+span.expand{display:inline-block;width:16px;height:16px;background: #fff url(data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAdtJREFUeNqkUzsvBFEUPjNzZhY7az3CFh4RkfWqNKJFolDoyIaCTlR0SqGhEp0oNKqlEgkRCX6ARIdEZLWWwdrZsY95ufeuO3Zssgon+XLP6ztz7jl3BNd14T+Cc2tPIIpiGBFXiR0jiPzBSRLELctacRznAx3HBoLVgai8GBurhaY6qSL7JWVH4mfpxatbk5pLomEYQBCbGg1CveoCqVwRNGdypIZxKBd1XaeVIo1hkSWUysTSDTuPtvp9/sawBITHroqZTJo5yX3KCvDYbz8dPI+hYXwyxbZtBi6maQKPJRKPJFYsIkkIqqp6Mczlcl4HFEPTF2WDm1y+9/SDjSjk83ngPLQs12srm81De/uIl5xInLOzs3P0Z+/4TNYuAeehICBTstkCaasA++s1XvJgrBjbX/9ZraZVkQICcB55P9VMKRQckGUF0unPkq8VY6U+RQn4Yqgooe/hKNT03b2tbZCdsiyUzYXzMBBgSlJLiZGmesWXdLgpf6/T9L/lVxMIL8k+bGjX0NIz0/quw1B3RzWEgsiGVBwUMHCbQksB7B1n4OlV3L07nz2lvTUE66JdfcM7C2pD7ziA0Fz5X3KfM293J7eX89tG6v6BFqDTCJUN4G+hL0v/EmAAoNXlG97vnHoAAAAASUVORK5CYII=) 0px 0px no-repeat;}
+span.collapse{display:inline-block;width:16px;height:16px;background: #fff url(data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAZ1JREFUeNqkkr1OAkEQx+fuhkPgkK8ghYZYGPzo7GjFxMJeQ7TQzljhGxhs9A2MhY0V2muMifoAJpaQGB+Aw0NPjuOA+3J34eg8ME7yT2Y3+/vv7OxwruvCfwL3T+rA83wMEctkXSTKjGFkooplWceO43yj49hAVF7NBUrFjWlIxwVf+kO1M5WHVumlatLlEa/rOhAVt9cjkJBcIM6+ome2CmHGUBY1TaNOmVSMZwcmiVRMAMKxp2K73WKb5D0TG9DGexzqeocltm0zeWGaJi0TOh2D5bY9MBcEBEmSwOOw2+2OKqDK7zz53n5zloNerwceh5bljsoyjB5kswX/f8cG+XYBPA45DlliGH1SVh+uT8O+BooyRQw48DgyPyGW9PsOBAIitFodXwNRDA7BAYeiGB02R6TLiUfY4zAYZImsqHwmnRAnguWmCYST2cW68gqzS7tzXxrkF+dDEI0ga9JvUlSAq9s21Jv8Ze1x754jJslIPLewsnZxKCWXNwG4mTFj1Gh/1u6qzwfnuvr2Tg1oN6J/asAg6GRpPwIMAFcAzawVzQR4AAAAAElFTkSuQmCC) 0px 0px no-repeat;}
 body, th, td {font-family:Calibri; font-size: 16px;}
 table { border-collapse: collapse; margin:auto;max-width:100%;}
 div { margin:auto;}
@@ -408,11 +580,9 @@ color: White; margin:center; margin-top: 5px; font-weight: bold;
     End Sub
 
     Private Sub HtmlEnd()
-        html.AppendLine("<script type=""text/javascript"">")
-        For j = 0 To i - 1
-            html.AppendLine("document.getElementById('t" + j.ToString + "').style.display = 'none';")
-        Next
-        html.AppendLine("function Init() {
+        html.AppendLine("<script type=""text/javascript"">
+
+function Init() {
 	var arr = document.getElementsByTagName('DIV');
 	for (el in arr) {
 		var obj = arr[el];

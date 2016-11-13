@@ -90,3 +90,14 @@ C:\Users\Vlad\Dropbox\Общая папка\01 ReportHTML\03 Steps\03 TablesAndG
 C:\Users\Vlad\Dropbox\Общая папка\01 ReportHTML\03 Steps\03 TablesAndGraphics\DBToHTML(1)\obj\Debug\DBToHTML_1_.Events.resources
 C:\Users\Vlad\Dropbox\Общая папка\01 ReportHTML\03 Steps\03 TablesAndGraphics\DBToHTML(1)\obj\Debug\DBToHTML_1_.Resources.resources
 C:\Users\Vlad\Dropbox\Общая папка\01 ReportHTML\03 Steps\03 TablesAndGraphics\DBToHTML(1)\obj\Debug\DBToHTML(1).vbproj.GenerateResource.Cache
+C:\Users\Jerala\Documents\HTMLReport\src\DBToHTML(1)\bin\Debug\DBToHTML(1).exe.config
+C:\Users\Jerala\Documents\HTMLReport\src\DBToHTML(1)\obj\Debug\DBToHTML(1).exe
+C:\Users\Jerala\Documents\HTMLReport\src\DBToHTML(1)\obj\Debug\DBToHTML(1).xml
+C:\Users\Jerala\Documents\HTMLReport\src\DBToHTML(1)\obj\Debug\DBToHTML(1).pdb
+C:\Users\Jerala\Documents\HTMLReport\src\DBToHTML(1)\bin\Debug\DBToHTML(1).exe
+C:\Users\Jerala\Documents\HTMLReport\src\DBToHTML(1)\bin\Debug\DBToHTML(1).pdb
+C:\Users\Jerala\Documents\HTMLReport\src\DBToHTML(1)\bin\Debug\DBToHTML(1).xml
+C:\Users\Jerala\Documents\HTMLReport\src\DBToHTML(1)\obj\Debug\DBToHTML(1).vbprojResolveAssemblyReference.cache
+C:\Users\Jerala\Documents\HTMLReport\src\DBToHTML(1)\obj\Debug\DBToHTML_1_.Events.resources
+C:\Users\Jerala\Documents\HTMLReport\src\DBToHTML(1)\obj\Debug\DBToHTML_1_.Resources.resources
+C:\Users\Jerala\Documents\HTMLReport\src\DBToHTML(1)\obj\Debug\DBToHTML(1).vbproj.GenerateResource.Cache
