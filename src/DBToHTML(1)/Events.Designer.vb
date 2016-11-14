@@ -76,7 +76,6 @@ Partial Class Events
         Me.TextBoxForQueries.Name = "TextBoxForQueries"
         Me.TextBoxForQueries.Size = New System.Drawing.Size(203, 20)
         Me.TextBoxForQueries.TabIndex = 0
-        Me.TextBoxForQueries.Text = "SELECT * FROM ForGraphic"
         '
         'ButtonForChangeDataBase
         '

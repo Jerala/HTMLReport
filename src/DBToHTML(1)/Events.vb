@@ -9,7 +9,12 @@ Public Class Events
     Dim numOfGraphic = 0
     Dim CounterOfGraphicsInSuperSchema = 1
     Dim MaxindexOfGraphicInSuperSchema = 0
-    Dim drawingDoubleDiv = False
+
+    ' Переменные для рисования графиков в методе DoubleDiv
+    Dim idxForFirstGraphDoubleDiv = 500
+    Dim idxForSecondGraphDoubleDiv = 600
+    Dim FirstGraphDoubleDiv = False
+    Dim SecondGraphDoubleDiv = False
     Public Sub New()
 
         InitializeComponent()
@@ -80,6 +85,9 @@ Public Class Events
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Try
+
+            ' Накидываем отчет
+
             CallNewParagraph("Par1")
             AddText("SuperSchema")
             Call AddSuperSchema(6, ds.Tables(0))
@@ -99,6 +107,11 @@ Public Class Events
             CallNewParagraph("Donut")
             CallPieGraphic(ds.Tables(0), 1, "Donut")
             CloseParagraph()
+            CallNewParagraph("DoubleDiv")
+            AddDoubleDiv()
+            CallLineGraphic(ds.Tables(0), "Some text", 0, 1, 2)
+            CallColumnGraphic(ds.Tables(0), 0, 1, 2)
+            CloseParagraph()
             CallNewParagraph("Column")
             CallColumnGraphic(ds.Tables(0), 0, 1, 2)
             CloseParagraph()
@@ -106,8 +119,9 @@ Public Class Events
             CallTable(ds.Tables(0))
             CloseParagraph()
             CallNewParagraph("123")
-            AddDoubleDiv(ds.Tables(0))
-            CallColumnGraphic(ds.Tables(0), 0, 1, 2)
+            AddDoubleDiv(Nothing, ds.Tables(0))
+            Call CallPieGraphic(ds.Tables(0), 1, Nothing)
+            CloseParagraph()
             CloseParagraph()
             Call HtmlEnd()
             Call CreateHTML()
@@ -197,121 +211,132 @@ Public Class Events
     End Sub
 
 
-    Private Sub AddDoubleDiv(table As DataTable, Optional table2 As DataTable = Nothing)
-        drawingDoubleDiv = True
+    Private Sub AddDoubleDiv(Optional table As DataTable = Nothing, Optional table2 As DataTable = Nothing)
+
+        ' Если какая-то таблица не указана, то определенной булевой переменной
+        ' Присваивается True, и затем при вызове функции отрисовки графика
+        ' Срабатывает условие, которое отрисовывает график в нужном месте
+
+        ' Определяем высоту Div'a
         Dim height As Integer = 350
-        Dim index = 500
-        If (table2 IsNot Nothing AndAlso table.Rows.Count >= table2.Rows.Count) OrElse table2 Is Nothing Then
-            height = table.Rows.Count * 25 + 100
+        If (table2 IsNot Nothing AndAlso table IsNot Nothing AndAlso table.Rows.Count >= table2.Rows.Count) OrElse table2 Is Nothing OrElse table Is Nothing Then
+            If table IsNot Nothing Then
+                height = table.Rows.Count * 25 + 100
+            ElseIf table2 IsNot Nothing Then
+                height = table2.Rows.Count * 25 + 100
+            End If
         Else
-            height = table2.Rows.Count * 25 + 100
+                height = table2.Rows.Count * 25 + 100
         End If
-        If table2 Is Nothing AndAlso height < 350 Then
+        If (table2 Is Nothing OrElse table Is Nothing) AndAlso height < 350 Then
             height = 350
         End If
         html.AppendLine("<div style=""width:90%; height:" + height.ToString + "px; margin:auto;text-align:center; display: inline-block;""> " &
                        "<div style=""width:50%;display: inline-block;position:relative;vertical-align: top"">")
 
-            If table IsNot Nothing Then
+        If table IsNot Nothing Then
 
-                Dim doubl As Double
-                Dim strTable = New StringBuilder()
-                strTable.AppendLine("<table style=""margin-top:15px;margin-bottom:15px;text-align:right;"">")
+            Dim doubl As Double
+            Dim strTable = New StringBuilder()
+            strTable.AppendLine("<table style=""margin-top:15px;margin-bottom:15px;text-align:right;"">")
+            strTable.AppendLine("<tr>")
+
+            For i As Integer = 0 To table.Columns.Count - 1
+
+                strTable.AppendLine("<th>" + table.Columns(i).ColumnName + "</th>")
+
+            Next
+
+            strTable.AppendLine("</tr>")
+
+            For i As Integer = 0 To table.Rows.Count - 1
+
                 strTable.AppendLine("<tr>")
 
-                For i As Integer = 0 To table.Columns.Count - 1
+                For j As Integer = 0 To table.Columns.Count - 1
 
-                    strTable.AppendLine("<th>" + table.Columns(i).ColumnName + "</th>")
+                    If IsDBNull(table.Rows(i)(j)) = False Then
+
+                        If Double.TryParse(table.Rows(i)(j), doubl) AndAlso table.Rows(i)(j) Mod 1 <> 0 Then
+                            strTable.AppendLine("<td>" + Double.Parse(table.Rows(i)(j)).ToString("N2") + "</td>")
+                        Else
+                            strTable.AppendLine("<td>" + table.Rows(i)(j).ToString() + "</td>")
+                        End If
+
+                    Else
+
+                        strTable.AppendLine("<td></td>")
+
+                    End If
 
                 Next
 
                 strTable.AppendLine("</tr>")
 
-                For i As Integer = 0 To table.Rows.Count - 1
+            Next
 
-                    strTable.AppendLine("<tr>")
-
-                    For j As Integer = 0 To table.Columns.Count - 1
-
-                        If IsDBNull(table.Rows(i)(j)) = False Then
-
-                            If Double.TryParse(table.Rows(i)(j), doubl) AndAlso table.Rows(i)(j) Mod 1 <> 0 Then
-                                strTable.AppendLine("<td>" + Double.Parse(table.Rows(i)(j)).ToString("N2") + "</td>")
-                            Else
-                                strTable.AppendLine("<td>" + table.Rows(i)(j).ToString() + "</td>")
-                            End If
-
-                        Else
-
-                            strTable.AppendLine("<td></td>")
-
-                        End If
-
-                    Next
-
-                    strTable.AppendLine("</tr>")
-
-                Next
-
-                strTable.AppendLine("</table>")
-                html.AppendLine(strTable.ToString)
-            Else
-
-                html.AppendLine("<div id=""graph" + index.ToString + """ style=""width:100%;text-align:center;height:100%;""></div>")
-                index += 1
-
-            End If
-            html.AppendLine("</div><div style=""width:50%;display: inline-block;position:relative;vertical-align: top"">")
-            If table2 IsNot Nothing Then
-
-                Dim doubl As Double
-                Dim strTable = New StringBuilder()
-                strTable.AppendLine("<table style=""margin-top:15px;margin-bottom:15px;text-align:right;"">")
-                strTable.AppendLine("<tr>")
-
-                For i As Integer = 0 To table2.Columns.Count - 1
-
-                    strTable.AppendLine("<th>" + table2.Columns(i).ColumnName + "</th>")
-
-                Next
-
-                strTable.AppendLine("</tr>")
-
-                For i As Integer = 0 To table2.Rows.Count - 1
-
-                    strTable.AppendLine("<tr>")
-
-                    For j As Integer = 0 To table2.Columns.Count - 1
-
-                        If IsDBNull(table2.Rows(i)(j)) = False Then
-
-                            If Double.TryParse(table2.Rows(i)(j), doubl) AndAlso table2.Rows(i)(j) Mod 1 <> 0 Then
-                                strTable.AppendLine("<td>" + Double.Parse(table2.Rows(i)(j)).ToString("N2") + "</td>")
-                            Else
-                                strTable.AppendLine("<td>" + table2.Rows(i)(j).ToString() + "</td>")
-                            End If
-
-                        Else
-
-                            strTable.AppendLine("<td></td>")
-
-                        End If
-
-                    Next
-
-                    strTable.AppendLine("</tr>")
-
-                Next
-
-                strTable.AppendLine("</table>")
+            strTable.AppendLine("</table>")
             html.AppendLine(strTable.ToString)
-            drawingDoubleDiv = False
         Else
 
-            html.AppendLine("<div id=""graph500"" style=""width:100%;text-align:center;height:100%;""></div>")
-            index += 1
+            ' Тут определяем, что при следующем вызове функции графика
+            ' Он будет отрисован именно в этом Div'e
 
-            End If
+            FirstGraphDoubleDiv = True
+            html.AppendLine("<div id=""graph" + idxForFirstGraphDoubleDiv.ToString + """ style=""width:100%;text-align:center;height:100%;""></div>")
+
+        End If
+        html.AppendLine("</div><div style=""width:50%;display: inline-block;position:relative;vertical-align: top"">")
+        If table2 IsNot Nothing Then
+
+            Dim doubl As Double
+            Dim strTable = New StringBuilder()
+            strTable.AppendLine("<table style=""margin-top:15px;margin-bottom:15px;text-align:right;"">")
+            strTable.AppendLine("<tr>")
+
+            For i As Integer = 0 To table2.Columns.Count - 1
+
+                strTable.AppendLine("<th>" + table2.Columns(i).ColumnName + "</th>")
+
+            Next
+
+            strTable.AppendLine("</tr>")
+
+            For i As Integer = 0 To table2.Rows.Count - 1
+
+                strTable.AppendLine("<tr>")
+
+                For j As Integer = 0 To table2.Columns.Count - 1
+
+                    If IsDBNull(table2.Rows(i)(j)) = False Then
+
+                        If Double.TryParse(table2.Rows(i)(j), doubl) AndAlso table2.Rows(i)(j) Mod 1 <> 0 Then
+                            strTable.AppendLine("<td>" + Double.Parse(table2.Rows(i)(j)).ToString("N2") + "</td>")
+                        Else
+                            strTable.AppendLine("<td>" + table2.Rows(i)(j).ToString() + "</td>")
+                        End If
+
+                    Else
+
+                        strTable.AppendLine("<td></td>")
+
+                    End If
+
+                Next
+
+                strTable.AppendLine("</tr>")
+
+            Next
+
+            strTable.AppendLine("</table>")
+            html.AppendLine(strTable.ToString)
+        Else
+
+            ' Аналогично для второго графика
+
+            SecondGraphDoubleDiv = True
+            html.AppendLine("<div id=""graph" + idxForSecondGraphDoubleDiv.ToString + """ style=""width:100%;text-align:center;height:100%;""></div>")
+        End If
         html.AppendLine("</div>")
     End Sub
 
@@ -351,12 +376,20 @@ var data = google.visualization.arrayToDataTable(" + data.ToString +
       }
     </script>")
             CounterOfGraphicsInSuperSchema += 1
-        ElseIf drawingDoubleDiv Then
-            html.AppendLine("var chart = new google.visualization.PieChart(document.getElementById('graph500'));
+        ElseIf FirstGraphDoubleDiv Then
+            html.AppendLine("var chart = new google.visualization.PieChart(document.getElementById('graph" + idxForFirstGraphDoubleDiv.ToString + "'));
                 chart.draw(data, options);
       }
     </script>")
-            drawingDoubleDiv = False
+            idxForFirstGraphDoubleDiv += 1
+            FirstGraphDoubleDiv = False
+        ElseIf SecondGraphDoubleDiv Then
+            html.AppendLine("var chart = new google.visualization.PieChart(document.getElementById('graph" + idxForSecondGraphDoubleDiv.ToString + "'));
+                chart.draw(data, options);
+      }
+    </script>")
+            idxForSecondGraphDoubleDiv += 1
+            SecondGraphDoubleDiv = False
         Else
             html.AppendLine("var chart = new google.visualization.PieChart(document.getElementById('donutchart" +
                             numOfGraphic.ToString + "'));
@@ -413,13 +446,20 @@ var data = google.visualization.arrayToDataTable(" + data.ToString +
       }
     </script>")
             CounterOfGraphicsInSuperSchema += 1
-        ElseIf drawingDoubleDiv Then
-            html.AppendLine("var chart = new google.visualization.LineChart(document.getElementById('graph" +
-                CounterOfGraphicsInSuperSchema.ToString + "'));
+        ElseIf FirstGraphDoubleDiv Then
+            html.AppendLine("var chart = new google.visualization.LineChart(document.getElementById('graph" + idxForFirstGraphDoubleDiv.ToString + "'));
                 chart.draw(data, options);
       }
     </script>")
-            drawingDoubleDiv = False
+            idxForFirstGraphDoubleDiv += 1
+            FirstGraphDoubleDiv = False
+        ElseIf SecondGraphDoubleDiv Then
+            html.AppendLine("var chart = new google.visualization.LineChart(document.getElementById('graph" + idxForSecondGraphDoubleDiv.ToString + "'));
+                chart.draw(data, options);
+      }
+    </script>")
+            idxForSecondGraphDoubleDiv += 1
+            SecondGraphDoubleDiv = False
         Else
             html.AppendLine("var chart = new google.visualization.LineChart(document.getElementById('curve_chart" +
                             numOfGraphic.ToString + "'));
@@ -500,12 +540,20 @@ var data = google.visualization.arrayToDataTable(" + data.ToString +
       }
     </script>")
             CounterOfGraphicsInSuperSchema += 1
-        ElseIf drawingDoubleDiv Then
-            html.AppendLine("var chart = new google.visualization.ColumnChart(document.getElementById('graph500'));
+        ElseIf FirstGraphDoubleDiv Then
+            html.AppendLine("var chart = new google.visualization.ColumnChart(document.getElementById('graph" + idxForFirstGraphDoubleDiv.ToString + "'));
                 chart.draw(data, options);
       }
     </script>")
-            drawingDoubleDiv = False
+            idxForFirstGraphDoubleDiv += 1
+            FirstGraphDoubleDiv = False
+        ElseIf SecondGraphDoubleDiv Then
+            html.AppendLine("var chart = new google.visualization.ColumnChart(document.getElementById('graph" + idxForSecondGraphDoubleDiv.ToString + "'));
+                chart.draw(data, options);
+      }
+    </script>")
+            idxForSecondGraphDoubleDiv += 1
+            SecondGraphDoubleDiv = False
         Else
             html.AppendLine("var chart = new google.visualization.ColumnChart(document.getElementById('chart_div" + numOfGraphic.ToString + "'));
         chart.draw(data, options);

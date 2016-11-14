@@ -281,10 +281,67 @@ var chart = new google.visualization.PieChart(document.getElementById('donutchar
                                 <tr style="">
                                     <td style="width: 0px;"><span id="t4img" class="collapse"></span></td>
                                     <td style="
-                                    font-family: Arial;padding-left:5px;font-weight: bold; color: White;font-size:18px;">Column</td>
+                                    font-family: Arial;padding-left:5px;font-weight: bold; color: White;font-size:18px;">DoubleDiv</td>
                                 </tr>
                             </table>
 <div id = "t4" style="text-align:center;">
+<div style="width:90%; height:350px; margin:auto;text-align:center; display: inline-block;"> <div style="width:50%;display: inline-block;position:relative;vertical-align: top">
+<div id="graph500" style="width:100%;text-align:center;height:100%;"></div>
+</div><div style="width:50%;display: inline-block;position:relative;vertical-align: top">
+<div id="graph600" style="width:100%;text-align:center;height:100%;"></div>
+</div>
+<script type = "text/javascript">
+      google.charts.load('current', {'packages':['corechart', 'line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+var data = google.visualization.arrayToDataTable([
+['id', 'number1', 'numberX'],
+[1, 5, 10], 
+[2, 3, 6], 
+[3, 4, 8]]);
+var options = {
+          title: 'Some text',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+var chart = new google.visualization.LineChart(document.getElementById('graph500'));
+                chart.draw(data, options);
+      }
+    </script>
+<script type = "text/javascript">
+      google.charts.load("visualization", "1" , {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+['id', 'number1', 'numberX', { role: 'annotation' }], 
+['1', 5, 10, '']
+, ['2', 3, 6, '']
+, ['3', 4, 8, '']
+]);
+
+        var options = {
+        legend: { position: 'top', maxLines: 3, textStyle: {color: 'black', fontSize: 16 } },
+		isStacked: true, 
+      };
+var chart = new google.visualization.ColumnChart(document.getElementById('graph600'));
+                chart.draw(data, options);
+      }
+    </script>
+</div>
+<table style="cursor: pointer;background-color: rgb(49, 133, 156);margin-bottom:5px;margin-left:0px;font-size:" class="group_title" 
+                    cellpadding="0" cellspacing="0"; onclick="toggle('t5');" 
+                    onmouseover="this.style.cursor = 'hand'; this.style.backgroundColor = '#1d7188';" 
+                    onmouseout="this.style.backgroundColor = '#31859c';">
+                                <tr style="">
+                                    <td style="width: 0px;"><span id="t5img" class="collapse"></span></td>
+                                    <td style="
+                                    font-family: Arial;padding-left:5px;font-weight: bold; color: White;font-size:18px;">Column</td>
+                                </tr>
+                            </table>
+<div id = "t5" style="text-align:center;">
 <script type = "text/javascript">
       google.charts.load("visualization", "1" , {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
@@ -308,16 +365,16 @@ var chart = new google.visualization.ColumnChart(document.getElementById('chart_
     <div id="chart_div2" style="margin: auto; max-width:700px; height:350px;max-height:400px;"></div>
 </div>
 <table style="cursor: pointer;background-color: rgb(49, 133, 156);margin-bottom:5px;margin-left:0px;font-size:" class="group_title" 
-                    cellpadding="0" cellspacing="0"; onclick="toggle('t5');" 
+                    cellpadding="0" cellspacing="0"; onclick="toggle('t6');" 
                     onmouseover="this.style.cursor = 'hand'; this.style.backgroundColor = '#1d7188';" 
                     onmouseout="this.style.backgroundColor = '#31859c';">
                                 <tr style="">
-                                    <td style="width: 0px;"><span id="t5img" class="collapse"></span></td>
+                                    <td style="width: 0px;"><span id="t6img" class="collapse"></span></td>
                                     <td style="
                                     font-family: Arial;padding-left:5px;font-weight: bold; color: White;font-size:18px;">Table</td>
                                 </tr>
                             </table>
-<div id = "t5" style="text-align:center;">
+<div id = "t6" style="text-align:center;">
 <table style="margin-top:15px;margin-bottom:15px;">
 <tr>
 <th>id</th>
@@ -342,17 +399,19 @@ var chart = new google.visualization.ColumnChart(document.getElementById('chart_
 </table>
 </div>
 <table style="cursor: pointer;background-color: rgb(49, 133, 156);margin-bottom:5px;margin-left:0px;font-size:" class="group_title" 
-                    cellpadding="0" cellspacing="0"; onclick="toggle('t6');" 
+                    cellpadding="0" cellspacing="0"; onclick="toggle('t7');" 
                     onmouseover="this.style.cursor = 'hand'; this.style.backgroundColor = '#1d7188';" 
                     onmouseout="this.style.backgroundColor = '#31859c';">
                                 <tr style="">
-                                    <td style="width: 0px;"><span id="t6img" class="collapse"></span></td>
+                                    <td style="width: 0px;"><span id="t7img" class="collapse"></span></td>
                                     <td style="
                                     font-family: Arial;padding-left:5px;font-weight: bold; color: White;font-size:18px;">123</td>
                                 </tr>
                             </table>
-<div id = "t6" style="text-align:center;">
+<div id = "t7" style="text-align:center;">
 <div style="width:90%; height:350px; margin:auto;text-align:center; display: inline-block;"> <div style="width:50%;display: inline-block;position:relative;vertical-align: top">
+<div id="graph501" style="width:100%;text-align:center;height:100%;"></div>
+</div><div style="width:50%;display: inline-block;position:relative;vertical-align: top">
 <table style="margin-top:15px;margin-bottom:15px;text-align:right;">
 <tr>
 <th>id</th>
@@ -376,28 +435,27 @@ var chart = new google.visualization.ColumnChart(document.getElementById('chart_
 </tr>
 </table>
 
-</div><div style="width:50%;display: inline-block;position:relative;vertical-align: top">
-<div id="graph500" style="width:100%;text-align:center;height:100%;"></div>
 </div>
 <script type = "text/javascript">
-      google.charts.load("visualization", "1" , {packages:["corechart"]});
+      google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-['id', 'number1', 'numberX', { role: 'annotation' }], 
-['1', 5, 10, '']
-, ['2', 3, 6, '']
-, ['3', 4, 8, '']
-]);
 
-        var options = {
-        legend: { position: 'top', maxLines: 3, textStyle: {color: 'black', fontSize: 16 } },
-		isStacked: true, 
-      };
-var chart = new google.visualization.ColumnChart(document.getElementById('graph500'));
+      function drawChart() {
+
+var data = google.visualization.arrayToDataTable([
+['id','number1'],
+['1',5], 
+['2',3], 
+['3',4]]);
+var options = {
+          title: '',
+          pieHole: 0.4,
+        };
+var chart = new google.visualization.PieChart(document.getElementById('graph501'));
                 chart.draw(data, options);
       }
     </script>
+</div>
 </div>
 <script type="text/javascript">
 
@@ -438,5 +496,5 @@ display: block;
 			background-color: #18424e; padding-left: 1%;
 			border-top: solid 1px darkgray;
 font-weight: bold;padding-top: 1%; color: White;
-">13.11.2016</footer></body></html>
+">14.11.2016</footer></body></html>
 
